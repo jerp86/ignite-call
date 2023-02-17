@@ -1,4 +1,4 @@
-import { Box, styled } from '@jerp-ignite-ui/react'
+import { Box, styled, Text } from '@jerp-ignite-ui/react'
 
 export const Form = styled(Box, {
   display: 'grid',
@@ -9,5 +9,12 @@ export const Form = styled(Box, {
 
   '@media(max-width: 600px)': {
     gridTemplateColumns: '1fr',
+  },
+})
+
+export const FormAnnotation = styled('section', {
+  marginTop: '$2',
+  [`> ${Text}`]: {
+    color: '$gray400',
   },
 })
