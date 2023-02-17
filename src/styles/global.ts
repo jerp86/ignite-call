@@ -1,4 +1,4 @@
-import { globalCss } from "@jerp-ignite-ui/react";
+import { globalCss } from '@jerp-ignite-ui/react'
 
 export const globalStyles = globalCss({
   '*': {
