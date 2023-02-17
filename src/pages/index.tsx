@@ -1,5 +1,7 @@
+import { Heading } from "@jerp-ignite-ui/react";
+
 export default function Home() {
   return (
-    <h1>Hello World</h1>
+    <Heading as="h1">Hello World</Heading>
   )
 }
