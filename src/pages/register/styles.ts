@@ -31,3 +31,7 @@ export const RegisterForm = styled(Box, {
     gap: '$2',
   },
 })
+
+export const RegisterFormError = styled(Text, {
+  color: '#F75A68',
+})

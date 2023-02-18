@@ -16,5 +16,9 @@ export const FormAnnotation = styled('section', {
   marginTop: '$2',
   [`> ${Text}`]: {
     color: '$gray400',
+
+    '&.error': {
+      color: '#F75A68',
+    },
   },
 })
