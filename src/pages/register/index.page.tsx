@@ -47,21 +47,26 @@ export default function Register() {
 
   const router = useRouter()
 
-  const handleRegister = useCallback(async (data: RegisterFormData) => {
-    try {
-      await api.post('/users', {
-        name: data.name,
-        username: data.username,
-      })
-    } catch (err) {
-      if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message)
-        return
-      }
+  const handleRegister = useCallback(
+    async (data: RegisterFormData) => {
+      try {
+        await api.post('/users', {
+          name: data.name,
+          username: data.username,
+        })
 
-      console.error(err)
-    }
-  }, [])
+        await router.push('/register/connect-calendar')
+      } catch (err) {
+        if (err instanceof AxiosError && err?.response?.data?.message) {
+          alert(err.response.data.message)
+          return
+        }
+
+        console.error(err)
+      }
+    },
+    [router],
+  )
 
   useEffect(() => {
     if (!router.query?.username) return
