@@ -6,7 +6,9 @@ import {
   Text,
   TextInput,
 } from '@jerp-ignite-ui/react'
+import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
+import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import {
@@ -35,14 +37,24 @@ export default function Register() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
   })
 
-  const handleRegister = async (data: RegisterFormData) => {
+  const router = useRouter()
+
+  const handleRegister = useCallback(async (data: RegisterFormData) => {
     console.log(data)
-  }
+  }, [])
+
+  useEffect(() => {
+    console.log('useEffect...', router.query?.username)
+    if (!router.query?.username) return
+
+    setValue('username', String(router.query.username))
+  }, [router.query?.username, setValue])
 
   return (
     <RegisterContainer>
@@ -53,7 +65,7 @@ export default function Register() {
           editar essas informações depois.
         </Text>
 
-        <MultiStep size={4} />
+        <MultiStep size={4} currentStep={1} />
       </RegisterHeader>
 
       <RegisterForm as="form" onSubmit={handleSubmit(handleRegister)}>
