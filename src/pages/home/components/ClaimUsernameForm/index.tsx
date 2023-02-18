@@ -31,6 +31,8 @@ export const ClaimUsernameForm = () => {
     console.log(data)
   }
 
+  const hasError = !!errors.username
+
   return (
     <>
       <Form as="form" onSubmit={handleSubmit(handleClaimUsername)}>
@@ -47,9 +49,9 @@ export const ClaimUsernameForm = () => {
       </Form>
 
       <FormAnnotation>
-        <Text size="sm">
-          {errors.username
-            ? errors.username.message
+        <Text size="sm" className={hasError ? 'error' : ''}>
+          {hasError
+            ? errors.username?.message
             : 'Digite o nome do usuário desejado'}
         </Text>
       </FormAnnotation>
