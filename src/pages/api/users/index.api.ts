@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma'
+import { timeToRevalidate } from '@/utils/timeToRevalidate'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { setCookie } from 'nookies'
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,11 +13,28 @@ export default async function handler(
 
   const { name, username } = req.body
 
+  const userExists = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  })
+
+  if (userExists) {
+    return res.status(400).json({
+      message: 'Username already taken.',
+    })
+  }
+
   const user = await prisma.user.create({
     data: {
       name,
       username,
     },
+  })
+
+  setCookie({ res }, '@ignitecall:userId', user.id, {
+    maxAge: timeToRevalidate({ days: 7 }),
+    path: '/',
   })
 
   return res.status(201).json(user)

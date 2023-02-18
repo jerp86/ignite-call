@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
 } from '@jerp-ignite-ui/react'
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
 import { useCallback, useEffect } from 'react'
@@ -52,13 +53,17 @@ export default function Register() {
         name: data.name,
         username: data.username,
       })
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message)
+        return
+      }
+
+      console.error(err)
     }
   }, [])
 
   useEffect(() => {
-    console.log('useEffect...', router.query?.username)
     if (!router.query?.username) return
 
     setValue('username', String(router.query.username))
