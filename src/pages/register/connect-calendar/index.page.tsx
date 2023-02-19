@@ -6,7 +6,7 @@ import { useCallback, useMemo } from 'react'
 import { RegisterContainer, RegisterHeader } from '../styles'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
 
-export default function Register() {
+export default function ConnectCalendar() {
   const session = useSession()
   const router = useRouter()
 
@@ -42,6 +42,10 @@ export default function Register() {
     )
   }, [handleConnectCalendar, isSignedId])
 
+  const handleNextStep = useCallback(async () => {
+    await router.push('/register/time-intervals')
+  }, [router])
+
   return (
     <RegisterContainer>
       <RegisterHeader>
@@ -67,7 +71,7 @@ export default function Register() {
           </AuthError>
         )}
 
-        <Button type="submit" disabled={!isSignedId}>
+        <Button type="submit" disabled={!isSignedId} onClick={handleNextStep}>
           Próximo passo
           <ArrowRight />
         </Button>
