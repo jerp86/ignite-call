@@ -1,4 +1,5 @@
 import { Box, styled, Text } from '@jerp-ignite-ui/react'
+import { RegisterFormError } from '../styles'
 
 export const IntervalBox = styled(Box, {
   marginTop: '$6',
@@ -41,4 +42,8 @@ export const IntervalInputs = styled('div', {
   'input::-webkit-calendar-picker-indicator': {
     filter: 'invert(100%) brightness(50%)',
   },
+})
+
+export const FormError = styled(RegisterFormError, {
+  marginBottom: '$4',
 })
