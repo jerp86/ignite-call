@@ -39,6 +39,13 @@ export const buildNextAuthOptions = (
 
       return true
     },
+
+    async session({ session, user }) {
+      return {
+        ...session,
+        user,
+      }
+    },
   },
 })
 
