@@ -1,4 +1,4 @@
-import { Box, styled } from '@jerp-ignite-ui/react'
+import { Box, styled, Text } from '@jerp-ignite-ui/react'
 
 export const IntervalBox = styled(Box, {
   marginTop: '$6',
@@ -27,6 +27,10 @@ export const IntervalDay = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '$3',
+
+  [`> ${Text}`]: {
+    textTransform: 'capitalize',
+  },
 })
 
 export const IntervalInputs = styled('div', {
