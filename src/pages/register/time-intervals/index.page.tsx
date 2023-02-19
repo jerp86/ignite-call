@@ -1,3 +1,4 @@
+import { api } from '@/lib/axios'
 import { convertTimeStringToMinutes, getWeekDays } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -90,8 +91,8 @@ export default function TimeIntervals() {
   const intervals = watch('intervals')
 
   const handleSetTimeIntervals = async (data: any) => {
-    const formData = data as TimeIntervalsFormOutput
-    console.log(formData)
+    const { intervals } = data as TimeIntervalsFormOutput
+    await api.post('/users/time-intervals', { intervals })
   }
 
   return (
