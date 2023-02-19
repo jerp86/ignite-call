@@ -1,4 +1,6 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { Adapter, AdapterSession, AdapterUser } from 'next-auth/adapters'
+import { destroyCookie, parseCookies } from 'nookies'
 import { prisma } from '../prisma'
 
 interface ReturnGetSessionAndUser {
@@ -6,9 +8,40 @@ interface ReturnGetSessionAndUser {
   user: AdapterUser
 }
 
-export function PrismaAdapter(): Adapter {
+export function PrismaAdapter(
+  req: NextApiRequest,
+  res: NextApiResponse,
+): Adapter {
   return {
-    async createUser(user): {},
+    async createUser(user): Promise<AdapterUser> {
+      const { '@ignitecall:userId': userIdOnCookies } = parseCookies({ req })
+
+      if (!userIdOnCookies) {
+        throw new Error('User ID not found on cookies.')
+      }
+
+      const prismaUser = await prisma.user.update({
+        where: {
+          id: userIdOnCookies,
+        },
+        data: {
+          name: user.name,
+          email: user.email,
+          avatar_url: user.avatar_url,
+        },
+      })
+
+      destroyCookie({ res }, '@ignitecall:userId', { path: '/' })
+
+      return {
+        id: prismaUser.id,
+        name: prismaUser.name,
+        username: prismaUser.username,
+        email: prismaUser.email || '',
+        emailVerified: null,
+        avatar_url: prismaUser.avatar_url || '',
+      }
+    },
 
     async getUser(id): Promise<AdapterUser | null> {
       const user = await prisma.user.findUnique({
@@ -107,8 +140,6 @@ export function PrismaAdapter(): Adapter {
       }
     },
 
-    async deleteUser(userId) {},
-
     async linkAccount(account) {
       await prisma.account.create({
         data: {
@@ -202,6 +233,14 @@ export function PrismaAdapter(): Adapter {
         sessionToken: prismaSession.session_token,
         userId: prismaSession.user_id,
       }
+    },
+
+    async deleteSession(sessionToken) {
+      await prisma.session.delete({
+        where: {
+          session_token: sessionToken,
+        },
+      })
     },
   }
 }
