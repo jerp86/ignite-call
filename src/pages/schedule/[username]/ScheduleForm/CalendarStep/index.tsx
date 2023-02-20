@@ -1,4 +1,5 @@
 import { Calendar } from '@/components/Calendar'
+import dayjs from 'dayjs'
 import { useState } from 'react'
 import {
   CalendarStepContainer,
@@ -10,11 +11,15 @@ import {
 
 export const CalendarStep = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
   const isDateSelected = !!selectedDate
+  const weekDay = selectedDate ? dayjs(selectedDate).format('dddd') : null
+  const describedDate = selectedDate
+    ? dayjs(selectedDate).format('DD[ de ]MMMM')
+    : null
 
   const handleDateSelected = (date: Date) => {
-    const hasDateIsEqual =
-      selectedDate && date.toLocaleString() === selectedDate.toLocaleString()
+    const hasDateIsEqual = dayjs(date).isSame(dayjs(selectedDate))
 
     if (hasDateIsEqual) {
       setSelectedDate(null)
@@ -36,7 +41,7 @@ export const CalendarStep = () => {
       {isDateSelected && (
         <TimePicker>
           <TimePickerHeader>
-            {selectedDate.getDay()} <span>{selectedDate.toLocaleString()}</span>
+            {weekDay}, <span>{describedDate}</span>
           </TimePickerHeader>
 
           <TimePickerList>
