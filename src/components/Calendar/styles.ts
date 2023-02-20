@@ -50,7 +50,7 @@ export const CalendarActions = styled('div', {
 export const CalendarBody = styled('table', {
   width: '100%',
   fontFamily: '$default',
-  borderSpacing: '0.25rem',
+  borderSpacing: '$space$1',
   tableLayout: 'fixed',
 
   'thead th': {
@@ -62,7 +62,7 @@ export const CalendarBody = styled('table', {
   'tbody::before': {
     content: '',
     display: 'block',
-    paddingBottom: '1.1875rem',
+    paddingBottom: '$5',
   },
 
   'tbody td': {
