@@ -3,6 +3,7 @@ import { getTimeToRevalidate } from '@/utils'
 import { Avatar, Heading, Text } from '@jerp-ignite-ui/react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
+import { ScheduleForm } from './ScheduleForm'
 import { Container, UserHeader } from './styles'
 
 interface ScheduleProps {
@@ -28,6 +29,8 @@ export default function Schedule({ user }: ScheduleProps) {
         <Heading>{user.name}</Heading>
         <Text>{user.bio}</Text>
       </UserHeader>
+
+      <ScheduleForm />
     </Container>
   )
 }
