@@ -11,6 +11,18 @@ import {
   CalendarDay,
 } from './styles'
 
+interface Days {
+  date: dayjs.Dayjs
+  disabled: boolean
+}
+
+interface CalendarWeek {
+  week: number
+  days: Days[]
+}
+
+type CalendarWeeks = CalendarWeek[]
+
 export const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(() => dayjs().set('date', 1))
 
@@ -31,8 +43,9 @@ export const Calendar = () => {
   const currentYear = currentDate.format('YYYY')
 
   const calendarWeeks = useMemo(() => {
+    const daysInMonth = currentDate.daysInMonth()
     const daysInMonthArray = Array.from({
-      length: currentDate.daysInMonth(),
+      length: daysInMonth,
     }).map((_, i) => currentDate.set('date', i + 1))
 
     const firstWeekDay = currentDate.get('day')
@@ -41,12 +54,37 @@ export const Calendar = () => {
       .map((_, i) => currentDate.subtract(i + 1, 'day'))
       .reverse()
 
-    return [...previousMonthFillArray, ...daysInMonthArray]
-  }, [currentDate])
-  console.log(calendarWeeks)
+    const lastDayInCurrentMonth = currentDate.set('date', daysInMonth)
+    const lastWeekDay = lastDayInCurrentMonth.get('day')
 
-  const fakeDays = Array.from(Array(7).keys())
-  const fakeWeeks = [1, 8, 15, 22]
+    const nextMonthFillArray = Array.from({
+      length: 7 - (lastWeekDay + 1),
+    }).map((_, i) => lastDayInCurrentMonth.add(i + 1, 'day'))
+
+    const calendarDays = [
+      ...previousMonthFillArray.map((date) => ({ date, disabled: true })),
+      ...daysInMonthArray.map((date) => ({ date, disabled: false })),
+      ...nextMonthFillArray.map((date) => ({ date, disabled: true })),
+    ]
+
+    const calendarWeeks = calendarDays.reduce<CalendarWeeks>(
+      (weeks, _, i, original) => {
+        const isNewWeek = i % 7 === 0
+
+        if (isNewWeek) {
+          weeks.push({
+            week: i / 7 + 1,
+            days: original.slice(i, i + 7),
+          })
+        }
+
+        return weeks
+      },
+      [],
+    )
+
+    return calendarWeeks
+  }, [currentDate])
 
   return (
     <CalendarContainer>
@@ -78,11 +116,13 @@ export const Calendar = () => {
           </tr>
         </thead>
         <tbody>
-          {fakeWeeks.map((item) => (
-            <tr key={item}>
-              {fakeDays.map((_, index) => (
-                <td key={index}>
-                  <CalendarDay>{index + item}</CalendarDay>
+          {calendarWeeks.map(({ week, days }) => (
+            <tr key={week}>
+              {days.map(({ date, disabled }) => (
+                <td key={date.toString()}>
+                  <CalendarDay disabled={disabled}>
+                    {date.get('date')}
+                  </CalendarDay>
                 </td>
               ))}
             </tr>
