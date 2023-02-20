@@ -1,12 +1,12 @@
 import { Box, Heading, styled, Text } from '@jerp-ignite-ui/react'
 
-export const RegisterContainer = styled('main', {
+export const Container = styled('main', {
   maxWidth: '35.75rem',
   margin: '$20 auto $4',
   padding: '0 $4',
 })
 
-export const RegisterHeader = styled('div', {
+export const Header = styled('div', {
   padding: '0 $6',
 
   [`> ${Heading}`]: {

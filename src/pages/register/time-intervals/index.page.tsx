@@ -14,7 +14,7 @@ import { ArrowRight } from 'phosphor-react'
 import { useCallback } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { RegisterContainer, RegisterHeader } from '../styles'
+import { Container, Header } from '../styles'
 import {
   FormError,
   IntervalBox,
@@ -105,8 +105,8 @@ export default function TimeIntervals() {
   )
 
   return (
-    <RegisterContainer>
-      <RegisterHeader>
+    <Container>
+      <Header>
         <Heading as="strong">Quase lá</Heading>
         <Text>
           Defina o intervalo de horários que você está disponível em cada dia da
@@ -114,7 +114,7 @@ export default function TimeIntervals() {
         </Text>
 
         <MultiStep size={4} currentStep={3} />
-      </RegisterHeader>
+      </Header>
 
       <IntervalBox as="form" onSubmit={handleSubmit(handleSetTimeIntervals)}>
         <IntervalContainer>
@@ -167,6 +167,6 @@ export default function TimeIntervals() {
           <ArrowRight />
         </Button>
       </IntervalBox>
-    </RegisterContainer>
+    </Container>
   )
 }

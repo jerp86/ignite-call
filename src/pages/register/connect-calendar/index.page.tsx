@@ -3,7 +3,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { ArrowRight, Check } from 'phosphor-react'
 import { useCallback, useMemo } from 'react'
-import { RegisterContainer, RegisterHeader } from '../styles'
+import { Container, Header } from '../styles'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
 
 export default function ConnectCalendar() {
@@ -47,8 +47,8 @@ export default function ConnectCalendar() {
   }, [router])
 
   return (
-    <RegisterContainer>
-      <RegisterHeader>
+    <Container>
+      <Header>
         <Heading as="strong">Conecte sua agenda!</Heading>
         <Text>
           Conecte o seu calendário para verificar automaticamente as horas
@@ -56,7 +56,7 @@ export default function ConnectCalendar() {
         </Text>
 
         <MultiStep size={4} currentStep={2} />
-      </RegisterHeader>
+      </Header>
 
       <ConnectBox>
         <ConnectItem>
@@ -80,6 +80,6 @@ export default function ConnectCalendar() {
           <ArrowRight />
         </Button>
       </ConnectBox>
-    </RegisterContainer>
+    </Container>
   )
 }

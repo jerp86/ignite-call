@@ -14,10 +14,10 @@ import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import {
-  RegisterContainer,
+  Container,
   RegisterForm,
   RegisterFormError,
-  RegisterHeader,
+  Header,
 } from './styles'
 
 const registerFormSchema = z.object({
@@ -75,8 +75,8 @@ export default function Register() {
   }, [router.query?.username, setValue])
 
   return (
-    <RegisterContainer>
-      <RegisterHeader>
+    <Container>
+      <Header>
         <Heading as="strong">Bem vindo ao Ignite Call!</Heading>
         <Text>
           Precisamos de algumas informações para criar seu perfil! Ah, você pode
@@ -84,7 +84,7 @@ export default function Register() {
         </Text>
 
         <MultiStep size={4} currentStep={1} />
-      </RegisterHeader>
+      </Header>
 
       <RegisterForm as="form" onSubmit={handleSubmit(handleRegister)}>
         <label>
@@ -118,6 +118,6 @@ export default function Register() {
           <ArrowRight />
         </Button>
       </RegisterForm>
-    </RegisterContainer>
+    </Container>
   )
 }

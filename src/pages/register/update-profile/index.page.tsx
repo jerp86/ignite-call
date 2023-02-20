@@ -17,7 +17,7 @@ import { ArrowRight } from 'phosphor-react'
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { RegisterContainer, RegisterHeader } from '../styles'
+import { Container, Header } from '../styles'
 import { FormAnnotation, ProfileBox } from './styles'
 
 const updateProfileSchema = z.object({
@@ -48,13 +48,13 @@ export default function UpdateProfile() {
   )
 
   return (
-    <RegisterContainer>
-      <RegisterHeader>
+    <Container>
+      <Header>
         <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
         <Text>Por último, uma breve descrição e uma foto de perfil.</Text>
 
         <MultiStep size={4} currentStep={4} />
-      </RegisterHeader>
+      </Header>
 
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
@@ -80,7 +80,7 @@ export default function UpdateProfile() {
           <ArrowRight />
         </Button>
       </ProfileBox>
-    </RegisterContainer>
+    </Container>
   )
 }
 

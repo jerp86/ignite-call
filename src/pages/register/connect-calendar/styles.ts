@@ -1,4 +1,5 @@
-import { Box, styled, Text } from '@jerp-ignite-ui/react'
+import { Box, styled } from '@jerp-ignite-ui/react'
+import { RegisterFormError } from '../styles'
 
 export const ConnectBox = styled(Box, {
   marginTop: '$6',
@@ -18,7 +19,6 @@ export const ConnectItem = styled('div', {
   marginBottom: '$4',
 })
 
-export const AuthError = styled(Text, {
-  color: '#F75A68',
+export const AuthError = styled(RegisterFormError, {
   marginBottom: '$2',
 })
