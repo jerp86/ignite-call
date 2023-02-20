@@ -1,3 +1,3 @@
 export * from './convertTimeStringToMinutes'
 export * from './getWeekDays'
-export * from './timeToRevalidate'
+export * from './getTimeToRevalidate'

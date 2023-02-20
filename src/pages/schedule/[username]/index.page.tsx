@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { timeToRevalidate } from '@/utils'
+import { getTimeToRevalidate } from '@/utils'
 import { Avatar, Heading, Text } from '@jerp-ignite-ui/react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -64,6 +64,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         name: user.name,
       },
     } as ScheduleProps,
-    revalidate: timeToRevalidate({ days: 7 }),
+    revalidate: getTimeToRevalidate({ days: 7 }),
   }
 }

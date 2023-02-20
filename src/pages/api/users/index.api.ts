@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { timeToRevalidate } from '@/utils/timeToRevalidate'
+import { getTimeToRevalidate } from '@/utils'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { setCookie } from 'nookies'
 
@@ -33,7 +33,7 @@ export default async function handler(
   })
 
   setCookie({ res }, '@ignitecall:userId', user.id, {
-    maxAge: timeToRevalidate({ days: 7 }),
+    maxAge: getTimeToRevalidate({ days: 7 }),
     path: '/',
   })
 

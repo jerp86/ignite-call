@@ -5,11 +5,11 @@ interface TimeToRevalidateProps {
   days?: number
 }
 
-export const timeToRevalidate = ({
+export const getTimeToRevalidate = ({
   seconds = 60,
   minutes = 60,
   hours = 24,
   days = 1,
-}: TimeToRevalidateProps) => {
+}: TimeToRevalidateProps = {}) => {
   return seconds * minutes * hours * days
 }
