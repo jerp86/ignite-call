@@ -5,4 +5,7 @@ export const CalendarStepContainer = styled(Box, {
   padding: 0,
   display: 'grid',
   position: 'relative',
+
+  width: '33.75rem',
+  gridTemplateColumns: '1fr',
 })
