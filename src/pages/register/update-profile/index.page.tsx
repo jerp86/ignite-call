@@ -1,6 +1,7 @@
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  Avatar,
   Button,
   Heading,
   MultiStep,
@@ -50,6 +51,10 @@ export default function UpdateProfile() {
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
           <Text>Foto de perfil</Text>
+          <Avatar
+            src={session.data?.user.avatar_url}
+            alt={`Photo by user ${session.data?.user.name}`}
+          />
         </label>
 
         <label>
