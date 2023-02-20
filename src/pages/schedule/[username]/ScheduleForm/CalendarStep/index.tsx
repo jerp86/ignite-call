@@ -12,11 +12,26 @@ export const CalendarStep = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const isDateSelected = !!selectedDate
 
+  const handleDateSelected = (date: Date) => {
+    const hasDateIsEqual =
+      selectedDate && date.toLocaleString() === selectedDate.toLocaleString()
+
+    if (hasDateIsEqual) {
+      setSelectedDate(null)
+      return
+    }
+
+    setSelectedDate(date)
+  }
+
   const fakeHoursList = Array.from(Array(11).keys())
 
   return (
     <CalendarStepContainer isTimePickerOpen={isDateSelected}>
-      <Calendar selectedDate={selectedDate} onDateSelected={setSelectedDate} />
+      <Calendar
+        selectedDate={selectedDate}
+        onDateSelected={handleDateSelected}
+      />
 
       {isDateSelected && (
         <TimePicker>
