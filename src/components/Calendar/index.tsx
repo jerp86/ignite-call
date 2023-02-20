@@ -11,6 +11,8 @@ import {
 
 export const Calendar = () => {
   const shortWeekDays = getWeekDays({ short: true })
+  const fakeDays = Array.from(Array(7).keys())
+  const fakeWeeks = [1, 8, 15, 22]
 
   return (
     <CalendarContainer>
@@ -38,21 +40,15 @@ export const Calendar = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <CalendarDay>1</CalendarDay>
-            </td>
-            <td>
-              <CalendarDay>2</CalendarDay>
-            </td>
-            <td>
-              <CalendarDay>3</CalendarDay>
-            </td>
-          </tr>
+          {fakeWeeks.map((item) => (
+            <tr key={item}>
+              {fakeDays.map((_, index) => (
+                <td key={index}>
+                  <CalendarDay>{index + item}</CalendarDay>
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </CalendarBody>
     </CalendarContainer>
