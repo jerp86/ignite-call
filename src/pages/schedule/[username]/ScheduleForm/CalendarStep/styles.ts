@@ -24,7 +24,7 @@ export const CalendarStepContainer = styled(Box, {
   },
 
   defaultVariants: {
-    isTimePickerOpen: true,
+    isTimePickerOpen: false,
   },
 })
 

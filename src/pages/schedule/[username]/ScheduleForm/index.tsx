@@ -1,3 +1,4 @@
-import { ConfirmStep } from './ConfirmStep'
+// import { ConfirmStep } from './ConfirmStep'
+import { CalendarStep } from './CalendarStep'
 
-export const ScheduleForm = () => <ConfirmStep />
+export const ScheduleForm = () => <CalendarStep />
