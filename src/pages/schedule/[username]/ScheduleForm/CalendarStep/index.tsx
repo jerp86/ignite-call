@@ -1,4 +1,5 @@
 import { Calendar } from '@/components/Calendar'
+import { useState } from 'react'
 import {
   CalendarStepContainer,
   TimePicker,
@@ -8,17 +9,19 @@ import {
 } from './styles'
 
 export const CalendarStep = () => {
-  const isDateSelected = false
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const isDateSelected = !!selectedDate
+
   const fakeHoursList = Array.from(Array(11).keys())
 
   return (
     <CalendarStepContainer isTimePickerOpen={isDateSelected}>
-      <Calendar />
+      <Calendar selectedDate={selectedDate} onDateSelected={setSelectedDate} />
 
       {isDateSelected && (
         <TimePicker>
           <TimePickerHeader>
-            segunda-feira <span>20 de fevereiro</span>
+            {selectedDate.getDay()} <span>{selectedDate.toLocaleString()}</span>
           </TimePickerHeader>
 
           <TimePickerList>
