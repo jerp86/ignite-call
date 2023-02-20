@@ -9,7 +9,9 @@ import {
   Text,
   TextInput,
 } from '@jerp-ignite-ui/react'
+import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
+import { useCallback } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { RegisterContainer, RegisterHeader } from '../styles'
@@ -87,13 +89,20 @@ export default function TimeIntervals() {
     name: 'intervals',
   })
 
+  const router = useRouter()
+
   const weekDays = getWeekDays()
   const intervals = watch('intervals')
 
-  const handleSetTimeIntervals = async (data: any) => {
-    const { intervals } = data as TimeIntervalsFormOutput
-    await api.post('/users/time-intervals', { intervals })
-  }
+  const handleSetTimeIntervals = useCallback(
+    async (data: any) => {
+      const { intervals } = data as TimeIntervalsFormOutput
+      await api.post('/users/time-intervals', { intervals })
+
+      await router.push('/register/update-profile')
+    },
+    [router],
+  )
 
   return (
     <RegisterContainer>

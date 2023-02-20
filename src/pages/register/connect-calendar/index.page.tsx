@@ -42,7 +42,7 @@ export default function ConnectCalendar() {
     )
   }, [handleConnectCalendar, isSignedId])
 
-  const handleNextStep = useCallback(async () => {
+  const handleNavigateToNextStep = useCallback(async () => {
     await router.push('/register/time-intervals')
   }, [router])
 
@@ -71,7 +71,11 @@ export default function ConnectCalendar() {
           </AuthError>
         )}
 
-        <Button type="submit" disabled={!isSignedId} onClick={handleNextStep}>
+        <Button
+          type="submit"
+          disabled={!isSignedId}
+          onClick={handleNavigateToNextStep}
+        >
           Próximo passo
           <ArrowRight />
         </Button>
