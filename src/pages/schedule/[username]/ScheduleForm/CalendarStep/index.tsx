@@ -11,9 +11,14 @@ import {
   TimePickerList,
 } from './styles'
 
+interface Availability {
+  possibleTimes: number[]
+  availableTimes: number[]
+}
+
 export const CalendarStep = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-  const [availability, setAvailability] = useState(null)
+  const [availability, setAvailability] = useState<Availability | null>(null)
 
   const router = useRouter()
 
@@ -35,8 +40,6 @@ export const CalendarStep = () => {
     setSelectedDate(date)
   }
 
-  const fakeHoursList = Array.from(Array(11).keys())
-
   useEffect(() => {
     if (!selectedDate) {
       return
@@ -48,7 +51,7 @@ export const CalendarStep = () => {
           date: dayjs(selectedDate).format('YYYY-MM-DD'),
         },
       })
-      .then((response) => console.log(response.data))
+      .then((response) => setAvailability(response.data))
   }, [selectedDate, username])
 
   return (
@@ -65,9 +68,12 @@ export const CalendarStep = () => {
           </TimePickerHeader>
 
           <TimePickerList>
-            {fakeHoursList.map((item) => (
-              <TimePickerItem key={item}>
-                {String(item + 8).padStart(2, '0')}:00h
+            {availability?.possibleTimes.map((hour) => (
+              <TimePickerItem
+                key={hour}
+                disabled={!availability.availableTimes.includes(hour)}
+              >
+                {String(hour).padStart(2, '0')}:00h
               </TimePickerItem>
             ))}
           </TimePickerList>
