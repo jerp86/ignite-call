@@ -8,17 +8,13 @@ import {
   TextInput,
 } from '@jerp-ignite-ui/react'
 import { AxiosError } from 'axios'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import {
-  Container,
-  RegisterForm,
-  RegisterFormError,
-  Header,
-} from './styles'
+import { Container, RegisterForm, RegisterFormError, Header } from './styles'
 
 const registerFormSchema = z.object({
   username: z
@@ -75,49 +71,53 @@ export default function Register() {
   }, [router.query?.username, setValue])
 
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Bem vindo ao Ignite Call!</Heading>
-        <Text>
-          Precisamos de algumas informações para criar seu perfil! Ah, você pode
-          editar essas informações depois.
-        </Text>
+    <>
+      <NextSeo title="Crie uma conta | Ignite Call" />
 
-        <MultiStep size={4} currentStep={1} />
-      </Header>
+      <Container>
+        <Header>
+          <Heading as="strong">Bem vindo ao Ignite Call!</Heading>
+          <Text>
+            Precisamos de algumas informações para criar seu perfil! Ah, você
+            pode editar essas informações depois.
+          </Text>
 
-      <RegisterForm as="form" onSubmit={handleSubmit(handleRegister)}>
-        <label>
-          <Text size="sm">Nome do usuário</Text>
-          <TextInput
-            prefix="ignite.com/"
-            placeholder="seu-usuário"
-            {...register('username')}
-          />
+          <MultiStep size={4} currentStep={1} />
+        </Header>
 
-          {errors.username && (
-            <RegisterFormError size="sm">
-              {errors.username.message}
-            </RegisterFormError>
-          )}
-        </label>
+        <RegisterForm as="form" onSubmit={handleSubmit(handleRegister)}>
+          <label>
+            <Text size="sm">Nome do usuário</Text>
+            <TextInput
+              prefix="ignite.com/"
+              placeholder="seu-usuário"
+              {...register('username')}
+            />
 
-        <label>
-          <Text size="sm">Nome completo</Text>
-          <TextInput placeholder="Seu nome" {...register('name')} />
+            {errors.username && (
+              <RegisterFormError size="sm">
+                {errors.username.message}
+              </RegisterFormError>
+            )}
+          </label>
 
-          {errors.name && (
-            <RegisterFormError size="sm">
-              {errors.name.message}
-            </RegisterFormError>
-          )}
-        </label>
+          <label>
+            <Text size="sm">Nome completo</Text>
+            <TextInput placeholder="Seu nome" {...register('name')} />
 
-        <Button type="submit" disabled={isSubmitting}>
-          Próximo passo
-          <ArrowRight />
-        </Button>
-      </RegisterForm>
-    </Container>
+            {errors.name && (
+              <RegisterFormError size="sm">
+                {errors.name.message}
+              </RegisterFormError>
+            )}
+          </label>
+
+          <Button type="submit" disabled={isSubmitting}>
+            Próximo passo
+            <ArrowRight />
+          </Button>
+        </RegisterForm>
+      </Container>
+    </>
   )
 }

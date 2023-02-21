@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { getTimeToRevalidate } from '@/utils'
 import { Avatar, Heading, Text } from '@jerp-ignite-ui/react'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ScheduleForm } from './ScheduleForm'
 import { Container, UserHeader } from './styles'
@@ -23,15 +24,19 @@ export default function Schedule({ user }: ScheduleProps) {
   }
 
   return (
-    <Container>
-      <UserHeader>
-        <Avatar src={user.avatarUrl} alt={user.name} />
-        <Heading>{user.name}</Heading>
-        <Text>{user.bio}</Text>
-      </UserHeader>
+    <>
+      <NextSeo title={`Agendar com ${user.name} | Ignite Call`} />
 
-      <ScheduleForm />
-    </Container>
+      <Container>
+        <UserHeader>
+          <Avatar src={user.avatarUrl} alt={user.name} />
+          <Heading>{user.name}</Heading>
+          <Text>{user.bio}</Text>
+        </UserHeader>
+
+        <ScheduleForm />
+      </Container>
+    </>
   )
 }
 
