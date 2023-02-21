@@ -47,9 +47,7 @@ export default async function handler(
     SELECT
             EXTRACT(DAY FROM S.date) AS date,
             COUNT(S.date) AS amount,
-            ((UTI.time_end_in_minutes - UTI.time_start_in_minutes) / 60) AS size,
-
-          EXTRACT(HOUR FROM NOW())
+            ((UTI.time_end_in_minutes - UTI.time_start_in_minutes) / 60) AS size
 
     FROM    schedulings S
         LEFT JOIN user_time_intervals UTI ON (UTI.user_id = S.user_id
