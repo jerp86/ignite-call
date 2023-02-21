@@ -37,12 +37,14 @@ export default async function handler(
       ),
   )
 
+  const yearMonth = `${year}-${String(month).padStart(2, '0')}`
+
   const blockedDatesRaw = await prisma.$queryRaw`
     SELECT  *
     FROM    schedulings S
 
     WHERE   S.user_id = ${user.id}
-        AND DATE_FORMAT(S.date, "%Y-%m") = ${`${year}-${month}`}
+        AND DATE_FORMAT(S.date, "%Y-%m") = ${yearMonth}
   `
 
   return res.json({ blockedWeekDays, blockedDatesRaw })
